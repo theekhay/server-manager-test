@@ -50,5 +50,18 @@ public class ServerManagerServiceTest {
         assertThat(response).isEqualTo(2);
     }
 
+    @Test
+    public void calulateShouldReturnZeroifAllVmsAreTooBig() throws Exception {
+
+        Server server = new Server(10, 10, 10);
+        List<VirtualMachine> machineList = new ArrayList<VirtualMachine>();
+        machineList.add( new VirtualMachine(11, 10, 10));
+        machineList.add( new VirtualMachine(1, 12, 8));
+        machineList.add( new VirtualMachine(5, 4, 15));
+
+        int response = serverManagerService.calculate(server, machineList);
+        assertThat(response).isEqualTo(0);
+    }
+
 
 }

@@ -13,14 +13,7 @@ public class ServerManagerService {
     public int calculate(Server server, List<VirtualMachine> virtualMachines) throws Exception {
 
         try{
-            for( int i = 0; i < virtualMachines.size(); i++){
-
-                VirtualMachine machine = virtualMachines.get(i);
-                if( machine.getCpu() > server.getCpu() || machine.getHdd() > server.getHdd() || machine.getRam() > server.getRam()) {
-                    virtualMachines.remove(machine);
-                }
-            }
-
+            virtualMachines.removeIf( vm -> vm.getRam() > server.getRam() || vm.getCpu() > server.getCpu() || vm.getHdd() > server.getHdd());
             Server requiredServerCapacity = getRequiredServerInstance(virtualMachines);
             return computeRequiredServerInstances(requiredServerCapacity, server);
 
